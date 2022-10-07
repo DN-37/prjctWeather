@@ -1,0 +1,39 @@
+body {
+  background: #0a081f;
+  font-family: "Rubik", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+#app {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 480px;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
