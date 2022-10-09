@@ -37,3 +37,54 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 480px;
+    transform: translateX(-200%);
+    background: #8781c5;
+    border-radius: 4px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+    z-index: 9;
+
+    .active {
+      transform: translateX(0);
+    }
+  }
+
+  .form {
+    width: 100%;
+  }
+  
+  .form-group {
+    display: flex;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
+  
+  .form-input {
+    border: none;
+    border-bottom: 2px solid #eee;
+    color: #fff;
+    background: transparent;
+    outline: none;
+    font-size: 19px;
+    width: 75%;
+    padding: 5px;
+  }
+  
+  .form-submit {
+    background: #000;
+    color: #fff;
+    width: 18%;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+  }
