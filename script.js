@@ -11,12 +11,12 @@ let store = {
   isDay: "yes",
   description: "",
   properties: {
-    cloudcover: 0,
-    humidity: 0,
-    windSpeed: 0,
-    pressure: 0,
-    uvIndex: 0,
-    visibility: 0,
+    cloudcover: {},
+    humidity: {},
+    windSpeed: {},
+    pressure: {},
+    uvIndex: {},
+    visibility: {},
   },
 };
 
@@ -48,14 +48,39 @@ const fetchData = async () => {
       city: name,
       temperature,
       observationTime,
-      feelslike,
-      cloudcover,
-      humidity,
-      pressure,
-      uvIndex,
-      visibility,
       description: description[0],
-      windSpeed,
+      properties: {
+        cloudcover: {
+          title: "cloudcover",
+          value: `${cloudcover}%`,
+          icon: "cloud.png",
+        },
+        humidity: {
+          title: "humidity",
+          value: `${humidity}%`,
+          icon: "humidity.png",
+        },
+        windSpeed: {
+          title: "wind speed",
+          value: `${windSpeed} km/h`,
+          icon: "wind.png",
+        },
+        pressure: {
+          title: "pressure",
+          value: `${pressure} %`,
+          icon: "gauge.png",
+        },
+        uvIndex: {
+          title: "uv Index",
+          value: `${uvIndex} / 100`,
+          icon: "uv-index.png",
+        },
+        visibility: {
+          title: "visibility",
+          value: `${visibility}%`,
+          icon: "visibility.png",
+        },
+      },
     };
 
     renderComponent();
@@ -87,8 +112,25 @@ const getImage = (description) => {
   }
 };
 
+const renderProperty = (properties) => {
+  return Object.values(properties)
+    .map(({ title, value, icon }) => {
+      return `<div class="property">
+                <div class="property-icon">
+                  <img src="./img/icons/${icon}" alt="">
+                </div>
+                <div class="property-info">
+                  <div class="property-info__value">${value}</div>
+                  <div class="property-info__description">${title}</div>
+                </div>
+              </div>`;
+    })
+    .join("");
+};
+
 const markup = () => {
-  const { city, description, observationTime, temperature, isDay } = store;
+  const { city, description, observationTime, temperature, isDay, properties } =
+    store;
 
   const containerClass = isDay === "yes" ? "is-day" : "";
 
@@ -113,7 +155,7 @@ const markup = () => {
                 </div>
               </div>
             </div>
-            <div id="properties"></div>
+            <div id="properties">${renderProperty(properties)}</div>
           </div>`;
 };
 
