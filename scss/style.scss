@@ -43,7 +43,7 @@ body {
     left: 0;
     top: 0;
     width: 480px;
-    transform: translateX(-200%);
+    transform: translateX(-100%);
     background: #8781c5;
     border-radius: 4px;
     height: 100%;
@@ -51,9 +51,9 @@ body {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease-in-out;
-    z-index: 9;
+    z-index: 10;
 
-    .active {
+    &.active {
       transform: translateX(0);
     }
   }
@@ -215,3 +215,36 @@ body {
     row-gap: 20px;
     justify-content: space-between;
   }
+
+  .popup-close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+
+    span {
+      display: block;
+      margin-top: 10px;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      transform: rotate(45deg);
+      position: relative;
+      
+      &:after {
+        cursor: pointer;
+        content: "";
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        transform: rotate(-90deg);
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+  
