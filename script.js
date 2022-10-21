@@ -2,9 +2,13 @@ const link =
   "http://api.weatherstack.com/current?access_key=2a1bdddf9a990df9d9ea6738a7e112aa";
 
 const root = document.getElementById("root");
+const popup = document.getElementById("popup");
+const textInput = document.getElementById("text-input");
+const form = document.getElementById("form");
+const close = document.getElementById("close");
 
 let store = {
-  city: "Samara",
+  city: "Togliatti",
   feelslike: 0,
   temperature: 0,
   observationTime: "00:00 AM",
@@ -22,7 +26,8 @@ let store = {
 
 const fetchData = async () => {
   try {
-    const result = await fetch(`${link}&query=${store.city}`);
+    const query = localStorage.getItem("query") || store.city;
+    const result = await fetch(`${link}&query=${query}`);
     const data = await result.json();
 
     const {
@@ -87,10 +92,6 @@ const fetchData = async () => {
   } catch (err) {
     console.log(err);
   }
-};
-
-const renderComponent = () => {
-  root.innerHTML = markup();
 };
 
 const getImage = (description) => {
@@ -158,5 +159,42 @@ const markup = () => {
             <div id="properties">${renderProperty(properties)}</div>
           </div>`;
 };
+
+const renderComponent = () => {
+  root.innerHTML = markup();
+
+  const city = document.getElementById("city");
+  city.addEventListener("click", togglePopupClass);
+};
+
+const togglePopupClass = () => {
+  popup.classList.toggle("active");
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const value = store.city;
+
+  if (!value) return null;
+
+  localStorage.setItem("query", value);
+  fetchData();
+  togglePopupClass();
+};
+
+const handleInput = (e) => {
+  store = {
+    ...store,
+    city: e.target.value,
+  };
+};
+
+const handleClose = () => {
+  togglePopupClass();
+};
+
+form.addEventListener("submit", handleSubmit);
+textInput.addEventListener("input", handleInput);
+close.addEventListener("click", handleClose);
 
 fetchData();
